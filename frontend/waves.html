@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layered SVG Waves with Boats</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: linear-gradient(to bottom, #4facfe, #00f2fe); /* sky */
+    }
+
+    .wave {
+      position: absolute;
+      bottom: 0;
+      width: 200%;
+      height: 200px;
+      z-index: 1;
+    }
+
+    /* Different speeds for parallax */
+    .wave1 { animation: moveWave 20s linear infinite; z-index: 1; opacity: 0.4; }
+    .wave2 { animation: moveWave 15s linear infinite; z-index: 3; opacity: 0.6; }
+    .wave3 { animation: moveWave 10s linear infinite; z-index: 5; opacity: 0.8; }
+
+    @keyframes moveWave {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* Boats layer sits between waves */
+    #boats {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 4;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Wave layers -->
+  <div class="wave wave1">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path fill="#0099ff" fill-opacity="1" 
+        d="M0,64L24,69.3C48,75,96,85,144,90.7C192,96,240,96,288,122.7C336,149,384,203,432,197.3C480,192,528,128,576,106.7C624,85,672,107,720,138.7C768,171,816,213,864,197.3C912,181,960,107,1008,85.3C1056,64,1104,96,1152,138.7C1200,181,1248,235,1296,245.3C1344,256,1392,224,1416,208L1440,192L1440,320L0,320Z">
+      </path>
+    </svg>
+  </div>
+
+  <div class="wave wave2">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path fill="#0077cc" fill-opacity="1" 
+        d="M0,64L24,69.3C48,75,96,85,144,90.7C192,96,240,96,288,122.7C336,149,384,203,432,197.3C480,192,528,128,576,106.7C624,85,672,107,720,138.7C768,171,816,213,864,197.3C912,181,960,107,1008,85.3C1056,64,1104,96,1152,138.7C1200,181,1248,235,1296,245.3C1344,256,1392,224,1416,208L1440,192L1440,320L0,320Z">
+      </path>
+    </svg>
+  </div>
+
+  <!-- Boats between wave2 & wave3 -->
+  <div id="boats"></div>
+
+  <div class="wave wave3">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path fill="#005599" fill-opacity="1" 
+        d="M0,64L24,69.3C48,75,96,85,144,90.7C192,96,240,96,288,122.7C336,149,384,203,432,197.3C480,192,528,128,576,106.7C624,85,672,107,720,138.7C768,171,816,213,864,197.3C912,181,960,107,1008,85.3C1056,64,1104,96,1152,138.7C1200,181,1248,235,1296,245.3C1344,256,1392,224,1416,208L1440,192L1440,320L0,320Z">
+      </path>
+    </svg>
+  </div>
+
+  <!-- tsparticles for boats -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+  <script>
+    tsParticles.load("boats", {
+      background: { color: "transparent" },
+      particles: { number: { value: 0 } },
+      emitters: {
+        autoPlay: true,
+        rate: { quantity: 1, delay: 8 },
+        position: { x: -5, y: 65 },
+        particles: {
+          shape: {
+            type: "images",
+            options: {
+              images: [
+                {
+                  src: "https://i.ibb.co/4VZZRgj/boat.png", /* boat img */
+                  width: 64,
+                  height: 64
+                }
+              ]
+            }
+          },
+          size: { value: 80 },
+          move: {
+            enable: true,
+            speed: 4,
+            direction: "right",
+            straight: true,
+            outModes: { right: "destroy" }
+          },
+          rotate: {
+            value: { min: -5, max: 5 },
+            animation: { enable: true, speed: 2, sync: false }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

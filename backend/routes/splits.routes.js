@@ -1,0 +1,28 @@
+import express from "express";
+import {
+  getAllSplits,
+  createSplit,
+  recordSettlement,
+  deleteSettlement,
+  settleSettlement,
+  getSplitParticipants
+} from "../controllers/splitsController.js";
+import { protect } from "../middleware/authMiddleware.js";
+import { authorizeRoles } from "../middleware/roleMiddleware.js";
+
+const router = express.Router();
+
+// List all splits
+router.get("/", protect, getAllSplits);
+
+// Create new split
+router.post("/", protect, authorizeRoles("user", "admin"), createSplit);
+
+// Record settlements
+router.post("/:id/settle", protect, authorizeRoles("user", "admin"), recordSettlement);
+
+router.delete("/:id", protect, deleteSettlement);
+router.patch("/:id/settle", protect, settleSettlement);
+router.route("/:id/participants").get(protect, getSplitParticipants);
+
+export default router;
