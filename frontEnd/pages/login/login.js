@@ -3,7 +3,8 @@ import axios from "axios";
 import "./login.css";
 
 export default function Login() {
-    const backendURL ="https://code-sandbox-api.myanatomy.in/capstone/68b7eed267adf0aca2c904ab/api/auth";
+    const API=process.env.REACT_APP_API
+    const backendURL =API;
     const [activeForm, setActiveForm] = useState("login");
     const [showPassword, setShowPassword] = useState(false);
     const [userInfo, setUserInfo] = useState(null);
@@ -182,3 +183,4 @@ export default function Login() {
         </div>
     );
 }
+
