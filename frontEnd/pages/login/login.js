@@ -4,7 +4,7 @@ import "./login.css";
 
 export default function Login() {
     const API=process.env.REACT_APP_API
-    const backendURL =API;
+    const backendURL =`${API}/api/auth`;
     const [activeForm, setActiveForm] = useState("login");
     const [showPassword, setShowPassword] = useState(false);
     const [userInfo, setUserInfo] = useState(null);
@@ -183,4 +183,5 @@ export default function Login() {
         </div>
     );
 }
+
 
