@@ -73,3 +73,13 @@ export const getMe = (req, res) => {
 export const getAdmin = (req, res) => {
   res.json({ message: "Welcome Admin!" });
 };
+// GET /api/users
+// Private route
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({}, "name _id"); // only return name & _id
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching users", error: error.message });
+  }
+};
